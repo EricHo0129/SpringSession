@@ -29,6 +29,10 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compile 'org.springframework.session:spring-session-data-redis'
+	compile 'org.apache.commons:commons-pool2:2.6.0'
+	compile 'redis.clients:jedis:2.9.0'
+	
+	
 	
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
