@@ -23,4 +23,10 @@ public class IndexController {
 	public String pageOne() {
 		return "pageOne";
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "afterLogout";
+	}
 }

@@ -11,7 +11,7 @@ public class CacheConfig {
 
 	@Bean
 	public static ConfigureRedisAction configureRedisAction() {
-		//關閉此選項
+		//關閉此選項(不監聽session銷毀事件)
 		return ConfigureRedisAction.NO_OP;
 	}
 }

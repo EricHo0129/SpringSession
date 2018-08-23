@@ -5,6 +5,7 @@
 <title>SpringSession第一頁</title>
 </head>
 <body>
-<dev th:text="'Yes!歡迎你'+${session.username}">XDDD</dev>
+<dev th:text="'Yes!歡迎你'+${session.username?:'陌生人'}">XDDD</dev><br>
+<dev><a th:href="@{/logout}">咱們走吧</a></dev>
 </body>
 </html>
