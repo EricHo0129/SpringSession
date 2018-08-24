@@ -7,5 +7,6 @@
 <body>
 <div th:text="'Hi! 會員['+${pid}+']'+${username} +'您好!'">你的名字</div>
 <div><a th:href="@{/pageOne}">走，到下一頁去，看我是否還認得你</a> </div>
+<div th:text="'session will expire at :'+${sessionexpire}">你的名字</div>
 </body>
 </html>

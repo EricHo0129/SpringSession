@@ -1,5 +1,8 @@
 package com.eric.springboot.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -27,11 +30,18 @@ public class IndexController {
 	
 	@GetMapping("/")
 	public String index(HttpSession session, @RequestParam("name") String name, @RequestParam("pid") String pid, Model model) {
-		
 		session.setAttribute("username", name);
 		session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pid);
 		model.addAttribute("username", name);
 		model.addAttribute("pid", pid);
+		model.addAttribute("sessionTimout", session.getMaxInactiveInterval());
+		Calendar c = Calendar.getInstance();
+		c.clear();
+		c.setTime(new Date());
+		c.add(Calendar.SECOND, session.getMaxInactiveInterval());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		model.addAttribute("sessionexpire", sdf.format(c.getTime()));
+		
 		return "index";
 	}
 	
