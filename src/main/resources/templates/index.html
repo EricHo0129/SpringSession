@@ -5,7 +5,7 @@
 <title>SpringSession首頁</title>
 </head>
 <body>
-<div th:text="'Hi! '+${username}">你的名字</div>
+<div th:text="'Hi! 會員['+${pid}+']'+${username} +'您好!'">你的名字</div>
 <div><a th:href="@{/pageOne}">走，到下一頁去，看我是否還認得你</a> </div>
 </body>
 </html>

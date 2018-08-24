@@ -26,12 +26,12 @@ public class IndexController {
 	FindByIndexNameSessionRepository<? extends Session> sessions;
 	
 	@GetMapping("/")
-	public String index(HttpSession session, @RequestParam("name") String name, Model model) {
-		if (!StringUtils.isEmpty(name)) {
-			session.setAttribute("username", name);
-			session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, "100024");
-			model.addAttribute("username", name);
-		}
+	public String index(HttpSession session, @RequestParam("name") String name, @RequestParam("pid") String pid, Model model) {
+		
+		session.setAttribute("username", name);
+		session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pid);
+		model.addAttribute("username", name);
+		model.addAttribute("pid", pid);
 		return "index";
 	}
 	
@@ -59,10 +59,10 @@ public class IndexController {
 	public String logoutByPid(HttpSession session, @PathVariable("pid") Long pid) {
 		String pidStr = String.valueOf(pid);
 		Map<String, ? extends Session> sessionMap = sessions.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pidStr);
-		if (sessionMap != null && sessionMap.containsKey(pidStr)) {
-			sessions.deleteById(sessionMap.get(pidStr).getId());
-		}
-	
-		return "pageOne";
+		
+		sessionMap.keySet().stream().forEach(key -> {
+			sessions.deleteById(key);
+		});
+		return "redirect:/pageOne";
 	}
 }
