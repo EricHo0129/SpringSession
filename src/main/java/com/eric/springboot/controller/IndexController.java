@@ -40,6 +40,7 @@ public class IndexController {
 		userInfo.setPid(123456L);
 		userInfo.setName("Eric123");
 		model.addAttribute("username", userInfo.getName());
+		model.addAttribute("pid", String.valueOf(userInfo.getPid()));
 		
 		return "index";
 	}
@@ -56,10 +57,8 @@ public class IndexController {
 	}
 	
 	@GetMapping("/logout/{pid}")
-	public String logoutByPid(HttpSession session, @PathVariable("pid") Long pid) {
-		String pidStr = String.valueOf(pid);
-		Map<String, ? extends Session> sessionMap = sessions.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pidStr);
-		
+	public String logoutByPid(HttpSession session, @PathVariable("pid") String pid) {
+		Map<String, ? extends Session> sessionMap = sessions.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pid);
 		sessionMap.keySet().stream().forEach(key -> {
 			sessions.deleteById(key);
 		});
