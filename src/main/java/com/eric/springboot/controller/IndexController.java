@@ -50,6 +50,14 @@ public class IndexController {
 		return "pageOne";
 	}
 	
+	@GetMapping("/pageClean/{pid}")
+	public String pageClean(HttpSession session, @PathVariable("pid") String pid) {
+		if (session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME) == null) {
+			session.invalidate();
+		}
+		return "pageOne";
+	}
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
