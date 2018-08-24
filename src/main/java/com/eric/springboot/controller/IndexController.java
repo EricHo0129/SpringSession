@@ -1,6 +1,7 @@
 package com.eric.springboot.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -34,24 +35,27 @@ public class IndexController {
 		session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pid);
 		model.addAttribute("username", name);
 		model.addAttribute("pid", pid);
-		model.addAttribute("sessionTimout", session.getMaxInactiveInterval());
+		model.addAttribute("sessionexpire", getSessionexpire(session));
+		
+		return "index";
+	}
+	
+	private String getSessionexpire(HttpSession session) {
 		Calendar c = Calendar.getInstance();
 		c.clear();
 		c.setTime(new Date());
 		c.add(Calendar.SECOND, session.getMaxInactiveInterval());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		model.addAttribute("sessionexpire", sdf.format(c.getTime()));
-		
-		return "index";
+		return sdf.format(c.getTime());
 	}
 	
 	@GetMapping("/autofill")
-	public String autofill(Model model) {
+	public String autofill(HttpSession session, Model model) {
 		userInfo.setPid(123456L);
 		userInfo.setName("Eric123");
 		model.addAttribute("username", userInfo.getName());
 		model.addAttribute("pid", String.valueOf(userInfo.getPid()));
-		
+		model.addAttribute("sessionexpire", getSessionexpire(session));
 		return "index";
 	}
 	
@@ -75,7 +79,7 @@ public class IndexController {
 	}
 	
 	@GetMapping("/logout/{pid}")
-	public String logoutByPid(HttpSession session, @PathVariable("pid") String pid) {
+	public String logoutByPid(HttpSession session, @PathVariable("pid") String pid) throws Exception {
 		Map<String, ? extends Session> sessionMap = sessions.findByIndexNameAndIndexValue(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pid);
 		sessionMap.keySet().stream().forEach(key -> {
 			sessions.deleteById(key);
