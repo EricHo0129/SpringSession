@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SpringSession首頁</title>
+</head>
+<body>
+<div th:text="'Hi! 親愛的 '+${@userInfo?.name?:'陌生人'} +' (會員編號['+${@userInfo?.pid?:'未知'}+']) 您好!'">你的名字</div>
+<div><a th:href="@{/sso/logout}">沒什麼意思，我走啦!</a> </div>
+
+<div>改一下名字</div>
+<form th:action="@{/changeName}" method="post">
+<div>
+<span>姓名</span> <input type="text" name="name" th:value="${@userInfo?.name?:''}" />
+</div>
+<div></div>
+<div>
+<input type="submit" value="送出"  />
+</div>
+</form>
+</body>
+</html>

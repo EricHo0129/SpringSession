@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SpringSession登入頁</title>
+</head>
+<body>
+<h3>請輸入登入資訊</h3>
+<form th:action="@{/sso/saml-consume}" th:object="${loginInfo}" method="post">
+<div>
+<span>編號</span> <input type="text" th:field="*{pid}" />
+</div>
+<div>
+<span>姓名</span> <input type="text" th:field="*{name}" />
+</div>
+<div></div>
+<div>
+<input type="submit" value="送出"  />
+</div>
+</form>
+</body>
+</html>
