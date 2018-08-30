@@ -14,7 +14,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		//除了登入頁之外,都要經過此攔截器
 		registry.addInterceptor(new LogonInterceptor())
 		.addPathPatterns("/*")
-		.excludePathPatterns("/login","/sso/*");
+		.excludePathPatterns("/login","/sso/*","/user");
 		
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}

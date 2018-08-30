@@ -42,8 +42,9 @@ public class LogonController {
 	 */
 	@PostMapping("/sso/saml-consume")
 	public String consume(HttpSession session, LoginInfo loginInfo) {
-		session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, String.valueOf(loginInfo.getPid()));
-		userInfo.setPid(loginInfo.getPid());
+		String pidStr = String.valueOf(loginInfo.getPid());
+		session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pidStr);
+		session.setAttribute("pid", pidStr);
 		userInfo.setName(loginInfo.getName());
 		return "redirect:/index";
 	}

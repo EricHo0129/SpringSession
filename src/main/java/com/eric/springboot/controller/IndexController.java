@@ -50,11 +50,11 @@ public class IndexController {
 	
 	@GetMapping("/autofill")
 	public String autofill(HttpSession session, Model model) {
-		userInfo.setPid(123456L);
+		//userInfo.setPid(123456L);
 		userInfo.setName("Eric123");
-		session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, String.valueOf(userInfo.getPid()));
+		//session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, String.valueOf(userInfo.getPid()));
 		model.addAttribute("username", userInfo.getName());
-		model.addAttribute("pid", String.valueOf(userInfo.getPid()));
+		//model.addAttribute("pid", String.valueOf(userInfo.getPid()));
 		model.addAttribute("sessionexpire", getSessionexpire(session));
 		return "index";
 	}

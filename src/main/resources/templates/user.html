@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SpringSession資訊頁</title>
+</head>
+<body>
+<h3>Session資訊</h3>
+<dev th:text="'session.attribute.pid='+${session.pid?:'未知'}">XDDD</dev><br>
+<dev th:text="'userInfo.name='+${@userInfo.name?:'未知'}">XDDD</dev><br>
+<dev th:text="'userInfo.interest='+${@userInfo.interest?:'未知'}">XDDD</dev><br>
+<dev th:text="'userInfo.sex='+${@userInfo.sex?:'未知'}">XDDD</dev><br>
+<dev th:text="'session過期時間='+${sessionexpire}">XDDD</dev><br>
+<hr>
+<dev><a th:href="@{/index}">回index</a> </dev><br>
+<dev><a th:href="@{/sso/logout}">不玩了再見</a> </dev><br>
+</body>
+</html>

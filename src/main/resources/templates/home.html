@@ -5,14 +5,23 @@
 <title>SpringSession首頁</title>
 </head>
 <body>
-<div th:text="'Hi! 親愛的 '+${@userInfo?.name?:'陌生人'} +' (會員編號['+${@userInfo?.pid?:'未知'}+']) 您好!'">你的名字</div>
-<div><a th:href="@{/sso/logout}">沒什麼意思，我走啦!</a> </div>
-
-<div>改一下名字</div>
-<form th:action="@{/changeName}" method="post">
+<div th:text="'Hi! 親愛的 '+${@userInfo?.name?:'陌生人'} +' (會員編號['+${session.pid?:'未知'}+']) 您好!'">你的名字</div>
+<hr>
+<div><a th:href="@{/sso/logout}">沒什麼意思，我走啦!</a> </div><br>
+<div><a th:href="@{/user}">看一下現在session有什麼資訊</a> </div>
+<hr>
+<div>完成個人資訊填寫</div>
+<form th:action="@{/fillOut}" th:object="${user}" method="post">
 <div>
-<span>姓名</span> <input type="text" name="name" th:value="${@userInfo?.name?:''}" />
+<span>姓名</span> <input type="text" th:field="*{name}"/>
 </div>
+<div>
+<span>興趣</span> <input type="text" th:field="*{interest}" />
+</div>
+<div>
+<span>性別</span> <input type="radio" th:field="*{sex}" value="1">男<input type="radio" th:field="*{sex}" value="0">女
+</div>
+
 <div></div>
 <div>
 <input type="submit" value="送出"  />

@@ -11,18 +11,12 @@ import org.springframework.stereotype.Component;
 public class UserInfo implements Serializable {
 	
 	private static final long serialVersionUID = -2409231630393231158L;
-
-	private Long pid;
 	
 	private String name;
-
-	public Long getPid() {
-		return pid;
-	}
-
-	public void setPid(Long pid) {
-		this.pid = pid;
-	}
+	
+	private String interest;
+	
+	private Integer sex;
 
 	public String getName() {
 		return name;
@@ -30,6 +24,22 @@ public class UserInfo implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getInterest() {
+		return interest;
+	}
+
+	public void setInterest(String interest) {
+		this.interest = interest;
+	}
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
 	}
 	
 	
