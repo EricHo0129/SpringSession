@@ -21,6 +21,8 @@ public class HomeController {
 	@Autowired
 	private UserInfo userInfo;
 	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	@GetMapping("/index")
 	public String home(Model model) {
 		UserInfo user = new UserInfo();
@@ -33,13 +35,22 @@ public class HomeController {
 	public String fillOut(HttpSession session, UserInfo user, Model model) {
 		BeanUtils.copyProperties(user, userInfo);
 		model.addAttribute("sessionexpire", getSessionexpire(session));
+		model.addAttribute("sessionlastcheck", getSessionLastAccess(session));
 		return "user";
 	}
 	
 	@GetMapping("/user")
 	public String getUserInfo(HttpSession session, Model model) {
 		model.addAttribute("sessionexpire", getSessionexpire(session));
+		model.addAttribute("sessionlastcheck", getSessionLastAccess(session));
 		return "user";
+	}
+	
+	private String getSessionLastAccess(HttpSession session) {
+		Calendar c = Calendar.getInstance();
+		c.clear();
+		c.setTimeInMillis((Long)session.getAttribute("lastCheckTime"));
+		return sdf.format(c.getTime());
 	}
 	
 	private String getSessionexpire(HttpSession session) {
@@ -47,7 +58,6 @@ public class HomeController {
 		c.clear();
 		c.setTime(new Date());
 		c.add(Calendar.SECOND, session.getMaxInactiveInterval());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(c.getTime());
 	}
 }

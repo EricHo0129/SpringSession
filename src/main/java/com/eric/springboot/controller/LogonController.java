@@ -45,6 +45,7 @@ public class LogonController {
 		String pidStr = String.valueOf(loginInfo.getPid());
 		session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, pidStr);
 		session.setAttribute("pid", pidStr);
+		session.setAttribute("lastCheckTime", System.currentTimeMillis());
 		userInfo.setName(loginInfo.getName());
 		return "redirect:/index";
 	}
